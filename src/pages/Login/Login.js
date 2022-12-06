@@ -5,6 +5,34 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../config";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const goToSignUp = () => {
+    navigate("/Join");
+  };
+
+  const loginDB = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        `${BASE_URL}`,
+        {
+          email: userId,
+          password: userPw,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
+      console.log(response);
+      if (response.data.ACCESS_TOKEN) {
+        localStorage.setItem("JWT", response.data.ACCESS_TOKEN);
+        alert("성공적으로 로그인 되었습니다.");
+        navigate("/Todo");
+      }
+    } catch (error) {
+      alert("error");
+    }
+  };
+
   const [inputValue, setInputValue] = useState({
     userId: "",
     userPw: "",
@@ -19,55 +47,34 @@ const Login = () => {
   };
 
   //아이디, 비밀번호 정규식
-  const regExpPw = /^[A-Za-z0-9]{8,20}$/;
-  const regExpId =
+  const REGEX_EMAIL =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+  const REGEX_PW = /^[A-Za-z0-9]{8,20}$/;
 
-  const isValid = regExpId.test(userId) && regExpPw.test(userPw);
-
-  const navigate = useNavigate();
-
-  const loginDB = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        `${BASE_URL}/auth/signup`,
-        {
-          email: userId,
-          password: userPw,
-        },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      console.log(response);
-      if (response.data.ACCESS_TOKEN) {
-        localStorage.setItem("JWT", response.data.ACCESS_TOKEN);
-        alert("성공적으로 로그인 되었습니다.");
-        navigate("/todo");
-      }
-    } catch (error) {
-      alert("error");
-    }
-  };
+  const isValid = REGEX_EMAIL.test(userId) && REGEX_PW.test(userPw);
 
   return (
     <LoginWapper>
-      <LoginBox onSubmit={loginDB} onChange={handleInput}>
+      <LoginBox>
         <LoginTitle>로그인</LoginTitle>
-        <LoginInfo>
-          <Input
-            type="text"
-            name="userId"
-            placeholder="이메일을 입력해주세요."
-          />
-          <Input
-            type="password"
-            name="userPw"
-            placeholder="비밀번호를 입력해주세요."
-          />
+        <LoginInfo onSubmit={loginDB} onChange={handleInput}>
+          {INPUT_DATA.map((input, index) => {
+            return (
+              <div key={input.id}>
+                <LoginInput
+                  name={input.name}
+                  type={input.type}
+                  placeholder={input.placeholder}
+                  valid={input.valid}
+                  autoFocus={input.autoFocus}
+                />
+              </div>
+            );
+          })}
           <LoginBtn disabled={!isValid} onClick={loginDB}>
             로그인 하기
           </LoginBtn>
-          <JoinBtn>회원가입 하기</JoinBtn>
+          <JoinBtn onClick={goToSignUp}>회원가입 하기</JoinBtn>
         </LoginInfo>
       </LoginBox>
     </LoginWapper>
@@ -103,7 +110,7 @@ const LoginInfo = styled.form`
   margin-top: 20px;
 `;
 
-const Input = styled.input`
+const LoginInput = styled.input`
   width: 100%;
   height: 40px;
   padding: 20px;
@@ -138,3 +145,20 @@ const JoinBtn = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+const INPUT_DATA = [
+  {
+    id: 1,
+    name: "userId",
+    type: "email",
+    placeholder: "이메일을 입력해주세요.",
+    autoFocus: true,
+  },
+  {
+    id: 2,
+    name: "userPw",
+    type: "password",
+    placeholder: "비밀번호를 입력해주세요.",
+    autoFocus: false,
+  },
+];

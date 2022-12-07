@@ -58,7 +58,7 @@ const Login = () => {
       <LoginBox>
         <LoginTitle>로그인</LoginTitle>
         <LoginInfo onSubmit={loginDB} onChange={handleInput}>
-          {INPUT_DATA.map((input, index) => {
+          {INPUT_DATA.map((input) => {
             return (
               <div key={input.id}>
                 <LoginInput

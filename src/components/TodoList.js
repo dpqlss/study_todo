@@ -6,17 +6,17 @@ const TodoList = () => {
   const [todos, setTodos] = useState([
     {
       id: 1,
-      text: "잠자기",
+      text: "잠자기🍎",
       checked: true,
     },
     {
       id: 2,
-      text: "놀기",
+      text: "놀기🥝",
       checked: true,
     },
     {
       id: 3,
-      text: "먹기",
+      text: "먹기🍇",
       checked: false,
     },
   ]);

@@ -31,7 +31,7 @@ const TodoBox = styled.div`
   width: 700px;
   padding: 50px 30px;
   border-radius: 15px;
-  background-color: rgba(226, 235, 255);
+  background-color: rgba(211, 225, 255);
   box-shadow: 5px 5px 10px 5px rgb(0, 0, 0, 0.2);
 `;
 
@@ -48,9 +48,10 @@ const AddForm = styled.form`
 
 const AddBtn = styled.button`
   width: 120px;
-  height: 40px;
+  height: 36px;
   border-radius: 50px;
   background-color: rgba(40, 70, 132);
   border: none;
   color: #fff;
+  cursor: pointer;
 `;

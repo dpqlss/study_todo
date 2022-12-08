@@ -1,41 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-// import TodoItem from "./TodoItem";
+import TodoItem from "./TodoItem";
 
 const TodoList = () => {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "잠자기",
+      checked: true,
+    },
+    {
+      id: 2,
+      text: "놀기",
+      checked: true,
+    },
+    {
+      id: 3,
+      text: "먹기",
+      checked: false,
+    },
+  ]);
   return (
-    <TodoListBlock>
-      {/* {TODO_ITEM.map((item) => (
-        <TodoItem key={item.id} id={item.id} text={item.text} />
-      ))} */}
-    </TodoListBlock>
+    <div>
+      <TodoBlock>
+        {todos.map((todo) => (
+          <TodoItem todo={todo} key={todo.id} />
+        ))}
+      </TodoBlock>
+    </div>
   );
 };
 
 export default TodoList;
 
-const TodoListBlock = styled.div`
-  width: 100%;
-  height: 40px;
-  border-radius: 10px;
-  margin-top: 30px;
-  border: 1px solid red;
+const TodoBlock = styled.div`
+  margin-top: 20px;
 `;
-
-const TODO_ITEM = [
-  {
-    id: 1,
-    text: "잠자기🍎",
-    checked: true,
-  },
-  {
-    id: 2,
-    text: "놀기🥨",
-    checked: true,
-  },
-  {
-    id: 3,
-    text: "먹기🍩",
-    checked: true,
-  },
-];

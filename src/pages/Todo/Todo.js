@@ -1,14 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TodoList from "../../components/TodoList";
 
 const Todo = () => {
+  const navigate = useNavigate();
   return (
     <TodoWapper>
       <TodoBox>
         <TodoTitle>TODO</TodoTitle>
         <AddForm>
-          <AddBtn>+Todo추가하기</AddBtn>
+          <AddBtn type="button" onClick={() => navigate("/new")}>
+            +Todo추가하기
+          </AddBtn>
         </AddForm>
         <TodoList />
       </TodoBox>

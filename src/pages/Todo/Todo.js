@@ -6,10 +6,6 @@ import New from "./New";
 const Todo = () => {
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
-    const todoLocal = localStorage.setItem("저장", [1, 2, 3]);
-  });
-
   const [todos, setTodos] = useState([
     {
       id: 1,
@@ -27,6 +23,11 @@ const Todo = () => {
       checked: false,
     },
   ]);
+
+  //todos가 업데이트 되면 localStorge에 데이터 저장하기
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todos));
+  }, [todos]);
 
   const dataId = useRef(4);
 

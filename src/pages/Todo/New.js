@@ -2,20 +2,44 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const New = () => {
+const New = ({ onCreate }) => {
   const navigate = useNavigate();
-  const contentRef = useRef(4);
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const titleRef = useRef();
+  const contentRef = useRef();
+  const [list, setList] = useState({
+    title: "",
+    content: "",
+  });
+
+  const goTodo = (e) => {
+    e.preventDefault();
+    navigate(-1);
+  };
+
+  const handleChange = (e) => {
+    setList({
+      ...list,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (content.length < 1) {
-      contentRef.current.focus();
+    if (list.title.length < 1) {
+      titleRef.current.focus();
+      alert("1글자 이상 입력해주세요.");
       return;
     }
-    navigate("/todo", { replace: true });
-    console.log(content);
+    if (list.content.length < 5) {
+      contentRef.current.focus();
+      alert("5글자 이상 입력해주세요.");
+      return;
+    }
+    onCreate(list.title);
+    setList({
+      title: "",
+      content: "",
+    });
   };
 
   return (
@@ -23,25 +47,26 @@ const New = () => {
       <NewBox>
         <TodoTitle>TODO</TodoTitle>
         <TitleText>할 일을 적어주세요.</TitleText>
-        <NewForm>
+        <NewForm onSubmit={handleSubmit}>
           <TitleArea
-            type="text"
-            value={title}
+            ref={titleRef}
+            name="title"
             placeholder="Title"
-            onChange={(e) => setTitle(e.target.value)}
+            value={list.title}
+            onChange={handleChange}
           ></TitleArea>
           <ContentArea
-            value={content}
+            ref={contentRef}
+            name="content"
             placeholder="Content"
-            onChange={(e) => setContent(e.target.value)}
+            value={list.content}
+            onChange={handleChange}
           ></ContentArea>
           <ControlBox>
-            <CanCel type="button" onClick={() => navigate("/todo")}>
+            <CanCel type="button" onClick={goTodo}>
               취소하기
             </CanCel>
-            <AddBtn type="submit" onClick={handleSubmit}>
-              작성완료
-            </AddBtn>
+            <AddBtn type="submit">작성완료</AddBtn>
           </ControlBox>
         </NewForm>
       </NewBox>
@@ -52,12 +77,10 @@ const New = () => {
 export default New;
 
 const NewWapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(173, 191, 230);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const NewBox = styled.div`

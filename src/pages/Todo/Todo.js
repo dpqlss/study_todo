@@ -1,20 +1,62 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import TodoList from "../../components/TodoList";
+import New from "./New";
 
 const Todo = () => {
-  const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const todoLocal = localStorage.setItem("저장", [1, 2, 3]);
+  });
+
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      title: "잠자기🍎",
+      checked: true,
+    },
+    {
+      id: 2,
+      title: "놀기🥝",
+      checked: false,
+    },
+    {
+      id: 3,
+      title: "먹기🍇",
+      checked: false,
+    },
+  ]);
+
+  const dataId = useRef(4);
+
+  const onCreate = (title) => {
+    const newList = {
+      id: dataId.current,
+      title,
+      checked: false,
+    };
+    setTodos([newList, ...todos]);
+    dataId.current += 1;
+    setVisible(!visible);
+  };
+
   return (
     <TodoWapper>
       <TodoBox>
         <TodoTitle>TODO</TodoTitle>
         <AddForm>
-          <AddBtn type="button" onClick={() => navigate("/new")}>
+          <AddBtn
+            type="button"
+            onClick={() => {
+              setVisible(!visible);
+            }}
+          >
             +Todo추가하기
           </AddBtn>
         </AddForm>
-        <TodoList />
+        <TodoList todos={todos} />
+        {visible && <New onCreate={onCreate} />}
       </TodoBox>
     </TodoWapper>
   );
@@ -23,6 +65,7 @@ const Todo = () => {
 export default Todo;
 
 const TodoWapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;

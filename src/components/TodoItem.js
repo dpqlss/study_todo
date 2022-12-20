@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const TodoItem = ({ todo }) => {
-  const { id, text, checked } = todo;
+  const { id, title, checked } = todo;
   const [isEdite, setIsEdit] = useState(false);
 
   return (
     <TodoListItem>
-      <TodoText>{text}</TodoText>
+      <TodoText>{title}</TodoText>
       <Edite>
         {isEdite ? (
           <>

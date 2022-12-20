@@ -1,25 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+// import React, { useState } from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "잠자기🍎",
-      checked: true,
-    },
-    {
-      id: 2,
-      text: "놀기🥝",
-      checked: true,
-    },
-    {
-      id: 3,
-      text: "먹기🍇",
-      checked: false,
-    },
-  ]);
+const TodoList = ({ todos }) => {
+  console.log(todos);
   return (
     <div>
       <TodoBlock>
@@ -33,6 +18,6 @@ const TodoList = () => {
 
 export default TodoList;
 
-const TodoBlock = styled.div`
+const TodoBlock = styled.form`
   margin-top: 20px;
 `;

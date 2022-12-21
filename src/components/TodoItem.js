@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const TodoItem = ({ todo }) => {
-  const { id, title, checked } = todo;
+  const { title, checked } = todo;
   const [isEdite, setIsEdit] = useState(false);
 
   return (

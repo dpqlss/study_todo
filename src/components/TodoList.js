@@ -4,7 +4,7 @@ import styled from "styled-components";
 import TodoItem from "./TodoItem";
 
 const TodoList = ({ todos }) => {
-  console.log(todos);
+  console.log("todolist", todos);
   return (
     <div>
       <TodoBlock>

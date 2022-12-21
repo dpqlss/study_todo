@@ -24,6 +24,15 @@ const Todo = () => {
     },
   ]);
 
+  //마운트되었을때 localStorage 데이터 불러오기
+  useEffect(() => {
+    const todoLocal = localStorage.getItem("todoList");
+    console.log("localStorage", todoLocal, JSON.parse(todoLocal));
+    if (todoLocal) {
+      setTodos(JSON.parse(todoLocal));
+    }
+  }, []);
+
   //todos가 업데이트 되면 localStorge에 데이터 저장하기
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todos));
@@ -33,12 +42,12 @@ const Todo = () => {
 
   const onCreate = (title) => {
     const newList = {
-      id: dataId.current,
+      id: dataId.current++,
       title,
       checked: false,
     };
+    console.log("id", dataId);
     setTodos([newList, ...todos]);
-    dataId.current += 1;
     setVisible(!visible);
   };
 

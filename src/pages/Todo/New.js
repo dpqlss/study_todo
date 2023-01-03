@@ -74,7 +74,7 @@ const New = ({ onCreate }) => {
   );
 };
 
-export default New;
+export default React.memo(New);
 
 const NewWapper = styled.div`
   position: absolute;

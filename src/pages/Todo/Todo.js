@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import TodoList from "../../components/TodoList";
 import New from "./New";
@@ -40,7 +40,7 @@ const Todo = () => {
 
   const dataId = useRef(4);
 
-  const onCreate = (title) => {
+  const onCreate = useCallback((title) => {
     const newList = {
       id: dataId.current++,
       title,
@@ -49,7 +49,14 @@ const Todo = () => {
     console.log("id", dataId);
     setTodos([newList, ...todos]);
     setVisible(!visible);
-  };
+  }, []);
+
+  const onRemove = useCallback(
+    (id) => {
+      setTodos(todos.filter((todo) => todo.id !== id));
+    },
+    [todos]
+  );
 
   return (
     <TodoWapper>
@@ -65,7 +72,7 @@ const Todo = () => {
             +Todo추가하기
           </AddBtn>
         </AddForm>
-        <TodoList todos={todos} />
+        <TodoList todos={todos} onRemove={onRemove} />
         {visible && <New onCreate={onCreate} />}
       </TodoBox>
     </TodoWapper>

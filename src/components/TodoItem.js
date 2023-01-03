@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const TodoItem = ({ todo }) => {
-  const { title, checked } = todo;
+const TodoItem = ({ todo, onRemove }) => {
+  const { id, title, checked } = todo;
   const [isEdite, setIsEdit] = useState(false);
 
   return (
@@ -17,7 +17,7 @@ const TodoItem = ({ todo }) => {
         ) : (
           <>
             <Button>수정하기</Button>
-            <Button>삭제하기</Button>
+            <Button onClick={() => onRemove(id)}>삭제하기</Button>
           </>
         )}
       </Edite>
@@ -25,7 +25,7 @@ const TodoItem = ({ todo }) => {
   );
 };
 
-export default TodoItem;
+export default React.memo(TodoItem);
 
 const TodoListItem = styled.div`
   display: flex;

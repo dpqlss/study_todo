@@ -16,7 +16,7 @@ const TodoList = ({ todos, onRemove }) => {
   );
 };
 
-export default TodoList;
+export default React.memo(TodoList);
 
 const TodoBlock = styled.form`
   margin-top: 20px;

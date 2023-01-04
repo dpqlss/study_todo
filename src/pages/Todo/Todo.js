@@ -40,16 +40,19 @@ const Todo = () => {
 
   const dataId = useRef(4);
 
-  const onCreate = useCallback((title) => {
-    const newList = {
-      id: dataId.current++,
-      title,
-      checked: false,
-    };
-    console.log("id", dataId);
-    setTodos([newList, ...todos]);
-    setVisible(!visible);
-  }, []);
+  const onCreate = useCallback(
+    (title) => {
+      const newList = {
+        id: dataId.current,
+        title,
+        checked: false,
+      };
+      setTodos([newList, ...todos]);
+      setVisible(visible);
+      dataId.current += 1;
+    },
+    [todos]
+  );
 
   const onRemove = useCallback(
     (id) => {

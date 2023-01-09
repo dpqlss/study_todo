@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const TodoItem = ({ todo, onRemove }) => {
+const TodoItem = ({ todo, onRemove, onEdit }) => {
   const { id, title, checked } = todo;
   const [isEdite, setIsEdit] = useState(false);
 
@@ -16,7 +16,7 @@ const TodoItem = ({ todo, onRemove }) => {
           </>
         ) : (
           <>
-            <Button>수정하기</Button>
+            <Button onClick={onEdit}>수정하기</Button>
             <Button onClick={() => onRemove(id)}>삭제하기</Button>
           </>
         )}

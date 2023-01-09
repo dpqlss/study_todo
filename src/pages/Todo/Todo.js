@@ -40,6 +40,7 @@ const Todo = () => {
 
   const dataId = useRef(4);
 
+  //새로운 글 추가
   const onCreate = useCallback(
     (title) => {
       const newList = {
@@ -54,6 +55,13 @@ const Todo = () => {
     [todos]
   );
 
+  //글 수정
+  const onEdit = (e) => {
+    e.preventDefault();
+    console.log("ddd");
+  };
+
+  //글 삭제
   const onRemove = useCallback(
     (id) => {
       setTodos(todos.filter((todo) => todo.id !== id));
@@ -75,7 +83,7 @@ const Todo = () => {
             +Todo추가하기
           </AddBtn>
         </AddForm>
-        <TodoList todos={todos} onRemove={onRemove} />
+        <TodoList todos={todos} onEdit={onEdit} onRemove={onRemove} />
         {visible && <New onCreate={onCreate} />}
       </TodoBox>
     </TodoWapper>
@@ -96,8 +104,10 @@ const TodoWapper = styled.div`
 
 const TodoBox = styled.div`
   width: 700px;
+  height: 500px;
   padding: 50px 30px;
   border-radius: 15px;
+  overflow: scroll;
   background-color: rgba(211, 225, 255);
   box-shadow: 5px 5px 10px 5px rgb(0, 0, 0, 0.2);
 `;

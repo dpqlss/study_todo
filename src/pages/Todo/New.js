@@ -85,6 +85,7 @@ const NewWapper = styled.div`
 
 const NewBox = styled.div`
   width: 700px;
+  height: 500px;
   padding: 50px 30px;
   border-radius: 15px;
   background-color: rgba(211, 225, 255);
@@ -113,6 +114,7 @@ const NewForm = styled.form`
 const TitleArea = styled.input`
   width: 100%;
   height: 50px;
+  margin-top: 30px;
   padding-left: 12px;
   line-height: 40px;
   font-size: 18px;
@@ -135,12 +137,13 @@ const ControlBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  padding-top: 50px;
 `;
 
 const CanCel = styled.button`
   width: 120px;
   height: 36px;
-  margin-top: 30px;
+  /* margin-top: 80px; */
   border-radius: 50px;
   background-color: rgba(177, 194, 229);
   border: none;
@@ -151,7 +154,7 @@ const CanCel = styled.button`
 const AddBtn = styled.button`
   width: 120px;
   height: 36px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   border-radius: 50px;
   background-color: rgba(40, 70, 132);
   border: none;

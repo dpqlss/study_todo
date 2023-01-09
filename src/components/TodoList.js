@@ -3,13 +3,18 @@ import React from "react";
 import styled from "styled-components";
 import TodoItem from "./TodoItem";
 
-const TodoList = ({ todos, onRemove }) => {
+const TodoList = ({ todos, onRemove, onEdit }) => {
   console.log("todolist", todos);
   return (
     <div>
       <TodoBlock>
         {todos.map((todo) => (
-          <TodoItem todo={todo} key={todo.id} onRemove={onRemove} />
+          <TodoItem
+            todo={todo}
+            key={todo.id}
+            onRemove={onRemove}
+            onEdit={onEdit}
+          />
         ))}
       </TodoBlock>
     </div>
